@@ -1,0 +1,50 @@
+# Builds the Lambda function and deploys the entire app stack (API Gateway, Lambda, S3)
+
+name: Deploy App Stack
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "backend/**"
+      - "terraform/modules/app_stack/**"
+      - "terraform/main.tf"
+  workflow_dispatch:
+
+# OIDC requires id-token:write to request a JWT; contents:read for checkout.
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      # Bundle TS → dist/index.js (esbuild), then strip devDeps to keep the artifact lean.
+      - name: Build Lambda
+        run: |
+          cd backend/functions/handle_messages
+          npm ci
+          npm run build
+          npm prune --omit=dev
+
+      - uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      # -backend-config overrides the bucket value in backend.tf, keeping the rest (key, region, etc.) intact.
+      - name: Terraform Init
+        run: terraform -chdir=terraform init -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}"
+
+      # Applies ALL modules (app_stack + observability + notification) since they share one state.
+      - name: Terraform Apply
+        run: terraform -chdir=terraform apply -auto-approve -var="alert_email=${{ vars.ALERT_EMAIL }}"

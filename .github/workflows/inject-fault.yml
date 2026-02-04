@@ -1,0 +1,48 @@
+# Manually triggered workflow that injects a deliberate S3 bucket policy fault.
+# Adds a Deny statement blocking the Lambda role from S3 access, causing the API to fail,
+# so AWS DevOps Agent can detect and diagnose the issue.
+
+name: Inject S3 Fault
+
+on:
+  workflow_dispatch:
+    inputs:
+      bucket_name:
+        description: "S3 bucket name to inject fault into"
+        required: true
+        type: string
+      lambda_role_arn:
+        description: "Lambda execution role ARN to deny"
+        required: true
+        type: string
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  inject:
+    name: Inject Fault
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - run: pip install boto3
+
+      - uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      # Saves the original policy locally, then appends a Deny for the Lambda role.
+      # To undo, run: python scripts/restore_s3_policy.py --bucket-name <bucket>
+      - name: Inject Fault
+        run: |
+          python scripts/break_s3_policy.py \
+            --bucket-name ${{ inputs.bucket_name }} \
+            --lambda-role-arn ${{ inputs.lambda_role_arn }}

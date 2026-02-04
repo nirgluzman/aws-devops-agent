@@ -1,0 +1,30 @@
+# Workflow to tear down ALL infrastructure provisioned by Terraform.
+
+name: Destroy All Infrastructure
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  destroy:
+    name: Terraform Destroy
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Terraform Init
+        run: terraform -chdir=terraform init -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}"
+
+      # Destroys all resources across all modules (app_stack, observability, notification).
+      - name: Terraform Destroy
+        run: terraform -chdir=terraform destroy -auto-approve -var="alert_email=${{ vars.ALERT_EMAIL }}"
