@@ -1,6 +1,7 @@
-# Builds the Lambda function and deploys the entire app stack (API Gateway, Lambda, S3)
+# Unified deploy workflow: builds Lambda and applies all Terraform modules
+# (app_stack, observability, notification) in a single run.
 
-name: Deploy App Stack
+name: Build Application & Deploy Infrastructure
 
 on:
   push:
@@ -8,6 +9,8 @@ on:
     paths:
       - "backend/**"
       - "terraform/modules/app_stack/**"
+      - "terraform/modules/observability/**"
+      - "terraform/modules/notification/**"
       - "terraform/main.tf"
   workflow_dispatch:
 
