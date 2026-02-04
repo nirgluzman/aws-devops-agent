@@ -1,0 +1,19 @@
+# Example Terraform variables file for LOCAL development/testing
+#
+# NOTE: GitHub Actions workflows do NOT use this file.
+#       CI/CD passes variables via CLI: -var="alert_email=${{ vars.ALERT_EMAIL }}"
+#       (configured in GitHub Settings → Secrets and variables → Actions)
+#
+# For local usage:
+#   1. Copy this file: cp terraform.tfvars.example terraform.tfvars
+#   2. Update with your values
+#   3. Run: terraform plan / terraform apply
+#
+# terraform.tfvars is git-ignored for security
+
+# Required: Email address for CloudWatch alarm notifications
+alert_email = "your-email@example.com"
+
+# Optional: Override defaults if needed
+# aws_region  = "us-east-1"
+# stage_name  = "dev"
