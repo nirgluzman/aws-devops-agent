@@ -1,7 +1,7 @@
 # Unified deploy workflow: builds Lambda and applies all Terraform modules
 # (app_stack, observability, notification) in a single run.
 
-name: Build Application & Deploy Infrastructure
+name: Deploy
 
 on:
   push:
