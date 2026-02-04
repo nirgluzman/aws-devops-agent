@@ -1,0 +1,18 @@
+@baseUrl = https://abc123.execute-api.us-east-1.amazonaws.com/dev
+
+###
+# GET /messages - Retrieve all messages
+GET {{baseUrl}}/messages
+
+###
+# POST /messages - Create a new message
+POST {{baseUrl}}/messages
+Content-Type: application/json
+
+{
+  "message": "AWS DevOps Agent is great !!"
+}
+
+###
+# GET /messages (after POST) - Verify message was stored
+GET {{baseUrl}}/messages
