@@ -5,10 +5,9 @@
 module "app_stack" {
   source = "./modules/app_stack"
 
-  aws_region         = var.aws_region
-  stage_name         = var.stage_name
-  lambda_source_path = "${path.root}/../backend/functions/handle_messages"
-  tags               = local.default_tags
+  aws_region  = var.aws_region
+  stage_name  = var.stage_name
+  tags        = local.default_tags
 }
 
 # Module: Notification (SNS topic and email subscription)

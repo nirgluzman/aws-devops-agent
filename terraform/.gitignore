@@ -25,3 +25,6 @@ terraform.rc
 
 # Lock file
 .terraform.lock.hcl
+
+# Lambda deployment artifact (built by CI)
+lambda.zip

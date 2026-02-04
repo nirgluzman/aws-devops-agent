@@ -10,11 +10,6 @@ variable "stage_name" {
   type        = string
 }
 
-variable "lambda_source_path" {
-  description = "Absolute path to the Lambda function source directory"
-  type        = string
-}
-
 variable "tags" {
   description = "Tags to apply to resources in this module"
   type        = map(string)

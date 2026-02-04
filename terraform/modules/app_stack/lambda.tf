@@ -13,23 +13,9 @@ module "lambda_function" {
   # X-Ray active tracing
   tracing_mode = "Active"
 
-  # Source code — all deps (SDK, Powertools, X-Ray) are bundled into dist/index.js
-  source_path = [
-    {
-      path = var.lambda_source_path
-      patterns = [
-        "!.*",
-        "!src",
-        "!build\\.js",
-        "!tsconfig\\.json",
-        "!package-lock\\.json",
-        "!README\\.md",
-        "!node_modules",
-        "dist/index\\.js",
-        "package\\.json",
-      ]
-    }
-  ]
+  # Pre-built zip
+  create_package         = false
+  local_existing_package = "${path.root}/lambda.zip"
 
   # Versioning configuration
   publish                                    = true

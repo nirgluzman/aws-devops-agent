@@ -35,13 +35,13 @@ jobs:
         with:
           node-version: "24"
 
-      # Bundle TS → dist/index.js (esbuild), then strip devDeps to keep the artifact lean.
-      - name: Build Lambda
+      # Bundle TS → dist/index.js (esbuild), then strip devDeps and zip the artifact.
+      - name: Build & Package Lambda
         run: |
           cd backend/functions/handle_messages
           npm ci
           npm run build
-          npm prune --omit=dev
+          zip -r ../../../terraform/lambda.zip dist/index.js package.json
 
       - uses: aws-actions/configure-aws-credentials@v5
         with:
