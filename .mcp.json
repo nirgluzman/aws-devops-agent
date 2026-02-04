@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "aws-docs": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "awslabs.aws-documentation-mcp-server@latest"
+      ],
+      "env": {}
+    },
+    "terraform": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "awslabs.terraform-mcp-server@latest"
+      ],
+      "env": {}
+    }
+  }
+}
