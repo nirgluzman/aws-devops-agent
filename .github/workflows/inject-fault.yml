@@ -2,7 +2,7 @@
 # Adds a Deny statement blocking the Lambda role from S3 access, causing the API to fail,
 # so AWS DevOps Agent can detect and diagnose the issue.
 
-name: Inject S3 Fault
+name: Inject Fault
 
 on:
   workflow_dispatch:
