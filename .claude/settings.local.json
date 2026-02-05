@@ -16,7 +16,8 @@
       "Bash(node -e:*)",
       "WebFetch(domain:middy.js.org)",
       "mcp__terraform__SearchAwsProviderDocs",
-      "mcp__terraform__SearchUserProvidedModule"
+      "mcp__terraform__SearchUserProvidedModule",
+      "WebFetch(domain:awslabs.github.io)"
     ]
   },
   "enableAllProjectMcpServers": true,

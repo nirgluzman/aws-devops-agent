@@ -1,12 +1,8 @@
 {
   "mcpServers": {
-    "aws-docs": {
-      "type": "stdio",
-      "command": "uvx",
-      "args": [
-        "awslabs.aws-documentation-mcp-server@latest"
-      ],
-      "env": {}
+    "aws-knowledge": {
+      "type": "http",
+      "url": "https://knowledge-mcp.global.api.aws"
     },
     "terraform": {
       "type": "stdio",
