@@ -5,11 +5,6 @@ output "stage_name" {
   value       = var.stage_name
 }
 
-output "lambda_arn" {
-  description = "Lambda function ARN"
-  value       = module.lambda_function.lambda_function_arn
-}
-
 output "lambda_function_name" {
   description = "Lambda function name"
   value       = module.lambda_function.lambda_function_name
@@ -18,11 +13,6 @@ output "lambda_function_name" {
 output "lambda_role_arn" {
   description = "Lambda execution role ARN"
   value       = module.lambda_function.lambda_role_arn
-}
-
-output "api_execution_arn" {
-  description = "API Gateway execution ARN"
-  value       = module.api_gateway.api_execution_arn
 }
 
 output "api_url" {

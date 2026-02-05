@@ -12,14 +12,14 @@ output "lambda_function_name" {
   value       = module.app_stack.lambda_function_name
 }
 
-output "lambda_arn" {
-  description = "Lambda function ARN"
-  value       = module.app_stack.lambda_arn
-}
-
 output "s3_bucket_id" {
   description = "S3 bucket name/ID"
   value       = module.app_stack.s3_bucket_id
+}
+
+output "lambda_role_arn" {
+  description = "Lambda execution role ARN"
+  value       = module.app_stack.lambda_role_arn
 }
 
 # Notification Outputs
