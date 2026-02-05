@@ -3,7 +3,6 @@
 locals {
   default_tags = {
     Project     = "DevOpsAgentDemo"
-    devopsagent = "true"
     Terraform   = "true"
     Environment = var.stage_name
   }
