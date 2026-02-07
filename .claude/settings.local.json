@@ -17,7 +17,14 @@
       "WebFetch(domain:middy.js.org)",
       "mcp__terraform__SearchAwsProviderDocs",
       "mcp__terraform__SearchUserProvidedModule",
-      "WebFetch(domain:awslabs.github.io)"
+      "WebFetch(domain:awslabs.github.io)",
+      "Bash(DRAWIO=\"/c/Program Files/draw.io/draw.io.exe\")",
+      "Bash(DIAGRAMS=\"/c/Users/nirgl/Desktop/Projects/aws-devops-agents/docs/diagrams\")",
+      "Bash(ASSETS=\"/c/Users/nirgl/Desktop/Projects/aws-devops-agents/docs/assets\")",
+      "Bash(\"$DRAWIO\" --export --format jpg --scale 1.2 --border 10 --quality 100 --output \"$ASSETS/01-system-architecture.jpg\" \"$DIAGRAMS/01-system-architecture.drawio\")",
+      "Bash(\"$DRAWIO\" --export --format jpg --scale 1.2 --border 10 --quality 100 --output \"$ASSETS/02-fault-injection-flow.jpg\" \"$DIAGRAMS/02-fault-injection-flow.drawio\")",
+      "Bash(\"$DRAWIO\" --export --format jpg --scale 1.2 --border 10 --quality 100 --output \"$ASSETS/03-cicd-pipeline.jpg\" \"$DIAGRAMS/03-cicd-pipeline.drawio\")",
+      "Bash(\"$DRAWIO\" --export --format jpg --scale 1.2 --border 10 --quality 100 --output \"$ASSETS/04-request-flow-sequence.jpg\" \"$DIAGRAMS/04-request-flow-sequence.drawio\")"
     ]
   },
   "enableAllProjectMcpServers": true,
