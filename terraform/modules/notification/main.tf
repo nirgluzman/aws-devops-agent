@@ -18,7 +18,7 @@
 #   5. Email notifications delivered to ops team inbox
 #
 # Security:
-#   - Topic encrypted at rest with AWS-managed KMS key (alias/aws/sns)
+#   - Topic encryption is disabled for easy integration with CloudWatch alarms.
 #   - Email subscription requires manual confirmation (click link in AWS email)
 #
 # Note: AWS DevOps Agent RCA is separate—viewed in Agent Space web app, not via SNS.
@@ -29,9 +29,10 @@
 
 # SNS Topic: Central hub for all DevOps Agent alert notifications
 resource "aws_sns_topic" "alerts" {
-  name              = "devops-agent-alerts"
-  display_name      = "DevOps Agent Demo Alerts"
-  kms_master_key_id = "alias/aws/sns" # Encrypt messages at rest (best practice)
+  name              = "devops-alerts"
+  display_name      = "DevOps Alerts"
+
+  # kms_master_key_id = "alias/aws/sns" # Encryption is disabled to ensure CloudWatch alarms can publish without KMS permission.
 
   tags = var.tags
 }
