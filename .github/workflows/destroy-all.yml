@@ -17,7 +17,8 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: hashicorp/setup-terraform@v3
+      # Install Terraform CLI v1.10.x for consistent infrastructure provisioning.
+      - uses: hashicorp/setup-terraform@v4
         with:
           terraform_version: "~1.10"
 

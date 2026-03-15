@@ -27,10 +27,12 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: hashicorp/setup-terraform@v3
+      # Install Terraform CLI v1.10.x for consistent infrastructure provisioning.
+      - uses: hashicorp/setup-terraform@v4
         with:
           terraform_version: "~1.10"
 
+      # Use Node.js v24 to build the Lambda function, ensuring compatibility with AWS Lambda's Node.js 24.x runtime.
       - uses: actions/setup-node@v6
         with:
           node-version: "24"
