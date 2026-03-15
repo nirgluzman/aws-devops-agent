@@ -45,7 +45,7 @@ jobs:
           npm run build
           zip -r ../../../terraform/lambda.zip dist/index.js package.json
 
-      - uses: aws-actions/configure-aws-credentials@v5
+      - uses: aws-actions/configure-aws-credentials@v6
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION }}
