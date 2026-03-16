@@ -1,0 +1,957 @@
+/* ============================================================
+   AWS Frontier Agents - Mission Control Theme
+   ============================================================ */
+
+/* --- Design Tokens --- */
+:root {
+  /* Backgrounds */
+  --bg-base:        #07080C;
+  --bg-card:        #0D1018;
+  --bg-card-hover:  #121720;
+  --bg-terminal:    #050709;
+
+  /* Accent hierarchy */
+  --amber:          #FF9900;
+  --amber-dim:      #B36B00;
+  --amber-glow:     rgba(255,153,0,0.18);
+  --phosphor:       #39D353;
+  --phosphor-dim:   #1A6626;
+  --cyan:           #00D4FF;
+
+  /* Text */
+  --text-primary:   #B8BDD0;
+  --text-secondary: #7A849E;
+  --text-muted:     #6B7394;
+  --text-bright:    #F0F1F6;
+
+  /* Structural */
+  --border:         rgba(255,153,0,0.12);
+  --border-active:  rgba(255,153,0,0.45);
+  --rule:           rgba(232,234,242,0.10);
+}
+
+/* --- Base Overrides --- */
+.reveal-viewport {
+  background: var(--bg-base);
+}
+
+body {
+  position: relative;
+}
+
+/* Noise grain overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
+/* --- Reveal.js Overrides --- */
+.reveal {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;
+  color: var(--text-primary);
+  font-size: 24px;
+}
+
+.reveal .slides {
+  text-align: left;
+  background-image: radial-gradient(circle, rgba(255,153,0,0.07) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.reveal .slides section,
+.reveal .slides > section,
+.reveal .slides > section > section {
+  padding: 72px 60px 40px;
+  box-sizing: border-box;
+}
+
+
+/* --- Typography --- */
+.reveal h1, .reveal h2, .reveal h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-bright);
+  margin-bottom: 0.4em;
+}
+
+.reveal h1 {
+  font-size: clamp(56px, 7vw, 96px);
+  line-height: 1;
+}
+
+.reveal h2 {
+  font-size: clamp(36px, 4.5vw, 56px);
+  line-height: 1.1;
+}
+
+.reveal h3 {
+  font-size: clamp(24px, 3vw, 36px);
+  line-height: 1.2;
+}
+
+.reveal p, .reveal li {
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+/* --- Section Label --- */
+.section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  position: absolute;
+  top: 24px;
+  left: 60px;
+  z-index: 10;
+  /* Fixed height slot - always at 24px from top of every slide */
+}
+
+/* --- Badge --- */
+.badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  display: inline-block;
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--amber);
+}
+
+/* --- Accent Text --- */
+.amber { color: var(--amber); }
+.cyan  { color: var(--cyan); }
+.red   { color: #FF6B6B; }
+
+/* Bold text gets bright treatment for contrast */
+.reveal strong {
+  color: var(--text-bright);
+  font-weight: 600;
+}
+
+/* Inline code pops */
+.reveal code {
+  color: var(--amber);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.9em;
+}
+
+/* --- Card Component --- */
+.card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 2px;
+  padding: 28px 32px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  position: relative;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--amber) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.card:hover {
+  border-color: var(--border-active);
+  box-shadow: 0 0 24px var(--amber-glow);
+}
+
+.card:not(.fragment):hover,
+.card.fragment.visible:hover {
+  transform: translateY(-3px);
+}
+
+.card:hover::before { opacity: 1; }
+
+/* Expanded card state (trio toggle) */
+.card.is-expanded {
+  border-color: var(--border-active);
+}
+
+.card.is-expanded::before { opacity: 1; }
+
+/* --- Card Layouts --- */
+.card-row {
+  display: flex;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.card-row .card {
+  flex: 1;
+}
+
+/* --- Detail Panel (trio toggle) --- */
+.detail-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--text-secondary);
+  font-size: 16px;
+  line-height: 1.6;
+  margin-top: 0;
+}
+
+.card.is-expanded .detail-panel {
+  max-height: 400px;
+  margin-top: 16px;
+}
+
+/* --- Card Title --- */
+.card-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.card-summary {
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+
+/* --- Stat Counter --- */
+.stat-grid {
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  margin-top: 48px;
+}
+
+.stat-counter {
+  text-align: center;
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 2px;
+  padding: 36px 32px 28px;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 96px;
+  color: var(--amber);
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text-primary);
+  text-align: center;
+  margin-top: 8px;
+  max-width: 200px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-bar {
+  height: 3px;
+  background: var(--amber-dim);
+  border-radius: 2px;
+  margin-top: 12px;
+  overflow: hidden;
+}
+
+.stat-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--amber);
+  transition: width 1800ms ease-out;
+}
+
+.stat-sublabel {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: left;
+  font-family: 'IBM Plex Mono', monospace;
+  position: absolute;
+  bottom: 40px;
+  left: 60px;
+}
+
+/* --- Contrast Table --- */
+.contrast-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 24px;
+  font-size: 17px;
+}
+
+.contrast-table th {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  padding: 8px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--rule);
+}
+
+.contrast-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--rule);
+  color: var(--text-secondary);
+}
+
+.contrast-table td:nth-child(3) {
+  color: var(--amber);
+  font-weight: 400;
+}
+
+/* --- Integration Table --- */
+.integration-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  font-size: 16px;
+}
+
+.integration-table th {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--rule);
+}
+
+.integration-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--rule);
+  color: var(--text-secondary);
+}
+
+/* --- Terminal Mock --- */
+.terminal {
+  background: var(--bg-terminal);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.terminal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0.03) 0px,
+    rgba(0,0,0,0.03) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+}
+
+.terminal-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.terminal-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.terminal-dot.red    { background: #FF5F56; }
+.terminal-dot.yellow { background: #FFBD2E; }
+.terminal-dot.green  { background: #27C93F; }
+
+.terminal-title {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-left: 8px;
+}
+
+.terminal-body {
+  padding: 20px 24px;
+  min-height: 200px;
+  line-height: 1.7;
+}
+
+.terminal-line {
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.terminal-line .prompt {
+  color: var(--amber);
+}
+
+.terminal-line.cmd {
+  color: var(--text-primary);
+}
+
+.terminal-line.output {
+  color: var(--phosphor);
+}
+
+.terminal-line.info {
+  color: var(--phosphor-dim);
+}
+
+.terminal-line.error {
+  color: #FF6B6B;
+}
+
+.terminal-line.success {
+  color: var(--phosphor);
+  font-weight: 500;
+}
+
+/* Blinking cursor */
+.terminal-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background: var(--amber);
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* --- Step Diagram --- */
+.step-diagram {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  margin-top: 32px;
+  justify-content: center;
+}
+
+.step-box {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 2px;
+  padding: 16px 20px;
+  min-width: 140px;
+  text-align: center;
+}
+
+.step-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  border-radius: 50%;
+  background: var(--amber);
+  color: var(--bg-base);
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.step-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.step-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 6px;
+}
+
+.step-arrow {
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+  padding-top: 48px;
+}
+
+.step-arrow svg {
+  width: 32px;
+  height: 16px;
+}
+
+/* --- Agent Loop SVG --- */
+.agent-loop-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 440px;
+  position: relative;
+}
+
+.agent-loop-container svg .node-circle {
+  fill: var(--bg-card);
+  stroke: var(--border);
+  stroke-width: 2;
+  transition: stroke 0.4s ease, filter 0.4s ease;
+}
+
+.agent-loop-container svg .node-circle.active {
+  stroke: var(--amber);
+  filter: drop-shadow(0 0 12px var(--amber-glow));
+}
+
+.agent-loop-container svg .node-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  fill: var(--text-primary);
+  text-anchor: middle;
+  dominant-baseline: central;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.agent-loop-container svg .arc-path {
+  fill: none;
+  stroke: var(--amber-dim);
+  stroke-width: 2;
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+}
+
+.agent-loop-container svg .arc-arrow {
+  fill: var(--amber-dim);
+}
+
+.agent-loop-container.is-animating .arc-path {
+  animation: draw-arc 600ms ease-out forwards;
+}
+
+.agent-loop-container.is-animating .arc-path:nth-child(1) { animation-delay: 0ms; }
+.agent-loop-container.is-animating .arc-path:nth-child(2) { animation-delay: 400ms; }
+.agent-loop-container.is-animating .arc-path:nth-child(3) { animation-delay: 800ms; }
+.agent-loop-container.is-animating .arc-path:nth-child(4) { animation-delay: 1200ms; }
+
+@keyframes draw-arc {
+  to { stroke-dashoffset: 0; }
+}
+
+/* --- SDLC Timeline --- */
+.sdlc-timeline {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  margin-top: 100px;
+  justify-content: center;
+}
+
+.sdlc-phase {
+  text-align: center;
+  min-width: 110px;
+  position: relative;
+}
+
+.sdlc-phase-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--text-bright);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 12px 18px;
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 2px;
+  background: var(--bg-card);
+}
+
+.sdlc-agent {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  margin-top: 12px;
+  letter-spacing: 0;
+}
+
+.sdlc-agent.kiro     { color: var(--cyan); }
+.sdlc-agent.security { color: #FF6B6B; }
+.sdlc-agent.devops   { color: var(--amber); }
+
+.sdlc-arrow {
+  display: flex;
+  align-items: center;
+  margin-top: 18px;
+}
+
+.sdlc-arrow svg {
+  width: 24px;
+  height: 12px;
+}
+
+/* --- Foundations badges --- */
+.foundations-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.foundation-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 20px 24px;
+}
+
+.foundation-item strong {
+  color: var(--amber);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.foundation-item p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+
+/* --- Two Column Layout --- */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 24px;
+}
+
+.two-col .col-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--amber);
+  margin-bottom: 12px;
+}
+
+/* --- Callout Box --- */
+.callout {
+  border: 1px solid var(--amber-dim);
+  border-radius: 2px;
+  padding: 16px 24px;
+  margin-top: 24px;
+  background: rgba(255,153,0,0.04);
+  font-size: 15px;
+  color: var(--text-secondary);
+}
+
+/* --- Constraint List --- */
+.constraint-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 16px;
+}
+
+.constraint-list li {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 17px;
+}
+
+.constraint-list li strong {
+  color: var(--amber);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-right: 8px;
+}
+
+/* --- RCA Quote --- */
+.rca-quote {
+  border-left: 3px solid var(--amber);
+  padding: 20px 28px;
+  background: var(--bg-card);
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--text-primary);
+  margin: 24px 0;
+}
+
+/* --- QR Slide --- */
+.qr-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 500px;
+  width: 100%;
+}
+
+.qr-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 24px;
+  letter-spacing: 0.06em;
+}
+
+/* --- Fragment Override --- */
+.reveal .fragment {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal .fragment.visible,
+.reveal .fragment.current-fragment {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Table row & inline fragments - no transform (breaks layout) */
+.reveal table .fragment,
+.reveal .step-diagram .fragment,
+.reveal .sdlc-timeline .fragment {
+  transform: none;
+}
+
+.reveal table .fragment.visible,
+.reveal table .fragment.current-fragment,
+.reveal .step-diagram .fragment.visible,
+.reveal .step-diagram .fragment.current-fragment,
+.reveal .sdlc-timeline .fragment.visible,
+.reveal .sdlc-timeline .fragment.current-fragment {
+  transform: none;
+}
+
+/* --- Progress Bar Override --- */
+.reveal .progress {
+  height: 3px;
+  background: rgba(255,153,0,0.1);
+}
+
+.reveal .progress span {
+  background: var(--amber);
+}
+
+/* --- Slides needing full height for bottom-anchored elements --- */
+.slide-why-now,
+.slide-sdlc {
+  height: 720px;
+}
+
+/* --- Bottom-anchored link (shared across slides) --- */
+.reveal .slide-bottom-link {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--text-muted);
+  position: absolute;
+  bottom: 40px;
+  left: 60px;
+}
+
+/* --- Title Slide Special --- */
+.title-slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100%;
+  position: relative;
+}
+
+.title-slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 800px 500px at 60% 50%, rgba(255,153,0,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.title-slide h1,
+.title-slide p,
+.title-slide a {
+  position: relative;
+  z-index: 1;
+}
+
+.title-slide h1 {
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+.title-subtitle {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px;
+  color: var(--amber);
+  letter-spacing: 0.04em;
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Slide images --- */
+.slide-img {
+  max-width: 100%;
+  max-height: 480px;
+  margin-top: 16px;
+  border-radius: 4px;
+  border: 1px solid rgba(255,153,0,0.45);
+  box-shadow: 0 0 32px rgba(255,153,0,0.12), 0 0 0 1px rgba(255,153,0,0.08);
+  display: block;
+}
+
+/* --- Demo Architecture SVG --- */
+.arch-diagram {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.arch-diagram svg text {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* --- Investigation Timeline --- */
+.investigation-timeline {
+  margin-top: 16px;
+}
+
+.timeline-entry {
+  display: flex;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 15px;
+}
+
+.timeline-time {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: var(--amber);
+  min-width: 60px;
+  flex-shrink: 0;
+}
+
+.timeline-desc {
+  color: var(--text-secondary);
+}
+
+/* --- Mitigation Steps --- */
+.mitigation-steps {
+  list-style: none;
+  padding: 0;
+  margin-top: 16px;
+}
+
+.mitigation-steps li {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+.mitigation-steps li strong {
+  color: var(--amber);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-right: 8px;
+}
+
+/* --- Slide-specific: S4.4 Security Model --- */
+.security-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.security-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 20px 24px;
+  border-radius: 2px;
+}
+
+.security-item strong {
+  color: var(--amber);
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.security-item p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* --- Click hint --- */
+.click-hint {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 16px;
+  text-align: center;
+}
+
+/* --- Integration table: row borders always visible --- */
+.fragment-table tbody td {
+  border-bottom-color: var(--rule);
+}
+
+/* --- Constraint list: larger font --- */
+.constraint-list li {
+  font-size: 19px;
+}
+
+/* --- Timeline: larger font --- */
+.timeline-entry {
+  font-size: 17px;
+}
+
+.timeline-time {
+  font-size: 15px;
+}

@@ -1,0 +1,947 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AWS Frontier Agents</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;600&display=swap"
+      rel="stylesheet" />
+
+    <!-- Reveal.js 5.x -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/black.css" />
+
+    <!-- Custom Theme -->
+    <link rel="stylesheet" href="css/theme.css" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <!-- ============================================================
+           SLIDE 0 - WELCOME
+           ============================================================ -->
+        <section
+          class="title-slide"
+          style="display: flex; flex-direction: column; justify-content: center; min-height: 100%">
+          <h1 style="font-size: clamp(52px, 7vw, 88px); line-height: 1.05; margin-bottom: 28px">
+            What If Your<br />
+            <span style="color: var(--amber)">Software Team</span><br />
+            Never Sleeps?
+          </h1>
+          <p style="font-size: 21px; color: var(--text-bright); max-width: 680px; line-height: 1.75; margin: 0">
+            Autonomous AI agents that plan, build, secure, and heal your applications -
+            <strong style="color: var(--amber)">around the clock, at machine speed.</strong>
+          </p>
+          <div style="margin-top: 48px; display: flex; flex-direction: column; gap: 6px">
+            <span
+              style="
+                font-family: 'IBM Plex Sans', sans-serif;
+                font-size: 26px;
+                font-weight: 600;
+                color: var(--text-bright);
+                letter-spacing: 0.02em;
+              "
+              >Nir Gluzman</span
+            >
+            <span
+              style="
+                font-family: 'IBM Plex Mono', monospace;
+                font-size: 17px;
+                color: var(--amber);
+                letter-spacing: 0.06em;
+              "
+              >Senior Manager - Cloud Architecture</span
+            >
+            <span
+              style="
+                font-family: 'IBM Plex Mono', monospace;
+                font-size: 15px;
+                color: var(--text-secondary);
+                margin-top: 4px;
+              "
+              >16.03.2026</span
+            >
+          </div>
+        </section>
+
+        <!-- ============================================================
+           SLIDE 0a - ABOUT ME
+           ============================================================ -->
+        <section
+          class="title-slide"
+          style="display: flex; flex-direction: column; justify-content: center; min-height: 100%">
+          <h1 style="font-size: clamp(40px, 5.5vw, 68px); line-height: 1.1; margin-bottom: 24px">
+            AI doesn't replace engineers<br />
+            it makes them <span style="color: var(--amber)">Superhuman</span>
+          </h1>
+          <p
+            style="
+              font-size: 26px;
+              color: var(--text-bright);
+              font-family: 'IBM Plex Sans', sans-serif;
+              font-weight: 300;
+              letter-spacing: 0.04em;
+            ">
+            Same team. &nbsp;<strong style="color: var(--amber)">10x output.</strong>
+          </p>
+          <p style="margin-top: 32px; font-size: 16px; color: var(--text-primary); max-width: 600px; line-height: 1.7">
+            Everything you'll see today is built around this idea - autonomous agents that
+            <strong style="color: var(--text-bright)">amplify what your team can already do.</strong>
+          </p>
+        </section>
+
+        <!-- ============================================================
+           SLIDE 0b - AGENDA
+           ============================================================ -->
+        <section>
+          <div class="section-label">Agenda</div>
+          <h2>Today's Session</h2>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px">
+            <div
+              style="
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-left: 3px solid var(--amber);
+                padding: 18px 22px;
+                border-radius: 2px;
+              ">
+              <div
+                style="
+                  font-family: 'IBM Plex Mono', monospace;
+                  font-size: 14px;
+                  color: var(--amber);
+                  letter-spacing: 0.1em;
+                  margin-bottom: 8px;
+                ">
+                01 / INTRODUCTION
+              </div>
+              <div style="font-size: 17px; color: var(--text-bright)">AWS Frontier Agents</div>
+              <div style="font-size: 13px; color: var(--text-primary); margin-top: 4px">
+                What they are &amp; why now
+              </div>
+            </div>
+            <div
+              style="
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-left: 3px solid var(--cyan);
+                padding: 18px 22px;
+                border-radius: 2px;
+              ">
+              <div
+                style="
+                  font-family: 'IBM Plex Mono', monospace;
+                  font-size: 14px;
+                  color: var(--cyan);
+                  letter-spacing: 0.1em;
+                  margin-bottom: 8px;
+                ">
+                02 / THE AGENTS
+              </div>
+              <div style="font-size: 17px; color: var(--text-bright)">Kiro / Security / DevOps</div>
+              <div style="font-size: 13px; color: var(--text-primary); margin-top: 4px">
+                Capabilities, speed gains, SDLC coverage
+              </div>
+            </div>
+            <div
+              style="
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-left: 3px solid #ff6b6b;
+                padding: 18px 22px;
+                border-radius: 2px;
+              ">
+              <div
+                style="
+                  font-family: 'IBM Plex Mono', monospace;
+                  font-size: 14px;
+                  color: #ff6b6b;
+                  letter-spacing: 0.1em;
+                  margin-bottom: 8px;
+                ">
+                03 / DEVOPS AGENT DEEP DIVE
+              </div>
+              <div style="font-size: 17px; color: var(--text-bright)">Architecture &amp; Integrations</div>
+              <div style="font-size: 13px; color: var(--text-primary); margin-top: 4px">
+                Agent Spaces, investigation flow, constraints
+              </div>
+            </div>
+            <div
+              style="
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-left: 3px solid var(--phosphor);
+                padding: 18px 22px;
+                border-radius: 2px;
+              ">
+              <div
+                style="
+                  font-family: 'IBM Plex Mono', monospace;
+                  font-size: 14px;
+                  color: var(--phosphor);
+                  letter-spacing: 0.1em;
+                  margin-bottom: 8px;
+                ">
+                04 / LIVE DEMO
+              </div>
+              <div style="font-size: 17px; color: var(--text-bright)">Fault Injection + RCA</div>
+              <div style="font-size: 13px; color: var(--text-primary); margin-top: 4px">
+                Serverless API, break it, watch the agent fix it
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+           SLIDE 1 - TITLE
+           ============================================================ -->
+        <section class="title-slide">
+          <div class="section-label">01 / Introduction</div>
+          <h1>AWS Frontier Agents</h1>
+          <p style="font-size: 22px; color: var(--text-primary); max-width: 800px; line-height: 1.7; margin-top: 16px">
+            A new class of <strong style="color: var(--amber)">autonomous AI systems</strong> designed to handle
+            complex, <span style="white-space: nowrap">long-running</span> tasks across the Software Development LifeCycle (SDLC) with minimal human intervention.
+          </p>
+          <a
+            href="https://aws.amazon.com/ai/frontier-agents/"
+            target="_blank"
+            rel="noopener"
+            style="
+              font-family: 'IBM Plex Mono', monospace;
+              font-size: 13px;
+              color: var(--amber);
+              margin-top: 20px;
+              display: inline-block;
+              text-decoration: none;
+              border-bottom: 1px dashed var(--amber-dim);
+            ">
+            aws.amazon.com/ai/frontier-agents &#8599;
+          </a>
+        </section>
+
+        <!-- ============================================================
+           SLIDE 2 - WHAT ARE AWS FRONTIER AGENTS?
+           ============================================================ -->
+        <section>
+          <div class="section-label">01 / Introduction</div>
+          <h2>What are AWS Frontier Agents?</h2>
+          <div class="card-row">
+            <div class="card">
+              <div class="card-title cyan">Autonomous</div>
+              <p style="font-size: 18px">
+                <strong>Plans and executes multi-step tasks</strong> without per-step human input
+              </p>
+              <p style="color: var(--text-secondary); font-size: 15px">
+                Reaches a high-level goal by breaking it into subtasks
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-title cyan">Scalable</div>
+              <p style="font-size: 18px">
+                <strong>Manages multiple concurrent workstreams</strong> across repos and accounts
+              </p>
+              <p style="color: var(--text-secondary); font-size: 15px">
+                No bottleneck - runs as many parallel tracks as needed
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-title cyan">Persistent</div>
+              <p style="font-size: 18px"><strong>Operates independently</strong> for hours or days</p>
+              <p style="color: var(--text-secondary); font-size: 15px">
+                Maintains full context across the entire duration of a project
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+           SLIDE 3 - THE THREE AGENTS
+           ============================================================ -->
+        <section>
+          <div class="section-label">02 / The Agents</div>
+          <h2>Your New <span style="color: var(--amber)">AI Teammates</span></h2>
+          <div class="card-row">
+            <!-- Kiro -->
+            <div class="card trio-card">
+              <div class="card-title cyan">Kiro</div>
+              <div class="card-summary">Your autonomous developer</div>
+              <div class="detail-panel">
+                <p style="margin: 0 0 8px">
+                  Translates natural language into structured requirements and technical designs. Implements features
+                  across dozens of repos in isolated sandboxes. Learns from your PR feedback over time.
+                </p>
+                <a
+                  href="https://app.kiro.dev/agent"
+                  target="_blank"
+                  rel="noopener"
+                  style="
+                    font-family: 'IBM Plex Mono', monospace;
+                    font-size: 11px;
+                    color: var(--cyan);
+                    text-decoration: none;
+                    border-bottom: 1px dashed var(--cyan);
+                  ">
+                  app.kiro.dev/agent &#8599;
+                </a>
+              </div>
+            </div>
+            <!-- Security Agent -->
+            <div class="card trio-card">
+              <div class="card-title red">Security Agent</div>
+              <div class="card-summary">Your always-on security engineer</div>
+              <div class="detail-panel">
+                <p style="margin: 0 0 6px">
+                  <strong>Design Review</strong> - Validates architecture against your org security requirements before
+                  code is written
+                </p>
+                <p style="margin: 0 0 6px">
+                  <strong>PR Scanning</strong> - Auto-scans for common vulnerabilities, OWASP Top 10, policy violations;
+                  remediation guidance directly in GitHub
+                </p>
+                <p style="margin: 0 0 6px">
+                  <strong>Pen Testing</strong> - Autonomous multi-step attack chains on live apps; understands source
+                  code context
+                </p>
+                <a
+                  href="https://aws.amazon.com/security-agent/"
+                  target="_blank"
+                  rel="noopener"
+                  style="
+                    font-family: 'IBM Plex Mono', monospace;
+                    font-size: 11px;
+                    color: #ff6b6b;
+                    text-decoration: none;
+                    border-bottom: 1px dashed #ff6b6b;
+                  ">
+                  aws.amazon.com/security-agent &#8599;
+                </a>
+              </div>
+            </div>
+            <!-- DevOps Agent -->
+            <div class="card trio-card">
+              <div class="card-title amber">DevOps Agent</div>
+              <div class="card-summary">Your autonomous on-call engineer</div>
+              <div class="detail-panel">
+                <p style="margin: 0 0 6px">
+                  <strong>Autonomous Triage</strong> - Investigates incidents the moment an alert triggers, correlating
+                  data from CloudWatch and 3rd party tools
+                </p>
+                <p style="margin: 0 0 6px">
+                  <strong>Root Cause Analysis (RCA)</strong> - Maps application topology to identify exactly where and
+                  why a failure occurred
+                </p>
+                <p style="margin: 0 0 6px">
+                  <strong>Proactive Prevention</strong> - Analyzes historical incident patterns to recommend
+                  observability, infrastructure, deployment, and resilience improvements
+                </p>
+                <a
+                  href="https://aws.amazon.com/devops-agent/"
+                  target="_blank"
+                  rel="noopener"
+                  style="
+                    font-family: 'IBM Plex Mono', monospace;
+                    font-size: 11px;
+                    color: var(--amber);
+                    text-decoration: none;
+                    border-bottom: 1px dashed var(--amber-dim);
+                  ">
+                  aws.amazon.com/devops-agent &#8599;
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="click-hint">Click a card to expand</div>
+        </section>
+
+        <!-- ============================================================
+           SLIDE 4 - WHY NOW?
+           ============================================================ -->
+        <section class="slide-why-now">
+          <div class="section-label">02 / The Agents</div>
+          <h2>Speed Changes Everything</h2>
+          <div class="stat-grid">
+            <div class="stat-counter">
+              <div class="stat-number" style="font-size: 72px" data-counter-target="90" data-counter-suffix="%">0</div>
+              <div class="stat-label">Reduction in Security Testing Duration</div>
+              <div class="stat-bar"><div class="stat-bar-fill"></div></div>
+            </div>
+            <div class="stat-counter">
+              <div
+                class="stat-number"
+                style="font-size: 72px"
+                data-counter-mode="text"
+                data-counter-text="Hrs<span style='vertical-align:middle;line-height:1'>→</span>Min">
+                -
+              </div>
+              <div class="stat-label">Root Cause Identification</div>
+              <div class="stat-bar"><div class="stat-bar-fill"></div></div>
+            </div>
+            <div class="stat-counter">
+              <div
+                class="stat-number"
+                style="font-size: 72px"
+                data-counter-mode="text"
+                data-counter-text="Wks<span style='vertical-align:middle;line-height:1'>→</span>Hrs">
+                -
+              </div>
+              <div class="stat-label">Penetration Testing Turnaround</div>
+              <div class="stat-bar"><div class="stat-bar-fill"></div></div>
+            </div>
+          </div>
+          <div class="stat-sublabel">Based on AWS customer testimonials</div>
+        </section>
+
+        <!-- ============================================================
+           SLIDE 5 - SDLC COVERAGE
+           ============================================================ -->
+        <section class="slide-sdlc">
+          <div class="section-label">02 / The Agents</div>
+          <h2>SDLC Coverage</h2>
+          <div class="sdlc-timeline">
+            <div class="sdlc-phase">
+              <div class="sdlc-phase-name">Plan</div>
+              <div class="sdlc-agent security">Security</div>
+            </div>
+            <div class="sdlc-arrow">
+              <svg viewBox="0 0 24 12">
+                <path d="M0 6h20M16 2l4 4-4 4" fill="none" stroke="#3D4559" stroke-width="1.5" />
+              </svg>
+            </div>
+            <div class="sdlc-phase">
+              <div class="sdlc-phase-name">Design</div>
+              <div class="sdlc-agent security">Security</div>
+              <div class="sdlc-agent kiro">Kiro</div>
+            </div>
+            <div class="sdlc-arrow">
+              <svg viewBox="0 0 24 12">
+                <path d="M0 6h20M16 2l4 4-4 4" fill="none" stroke="#3D4559" stroke-width="1.5" />
+              </svg>
+            </div>
+            <div class="sdlc-phase">
+              <div class="sdlc-phase-name">Implement</div>
+              <div class="sdlc-agent kiro">Kiro</div>
+            </div>
+            <div class="sdlc-arrow">
+              <svg viewBox="0 0 24 12">
+                <path d="M0 6h20M16 2l4 4-4 4" fill="none" stroke="#3D4559" stroke-width="1.5" />
+              </svg>
+            </div>
+            <div class="sdlc-phase">
+              <div class="sdlc-phase-name">Test</div>
+              <div class="sdlc-agent security">Security</div>
+            </div>
+            <div class="sdlc-arrow">
+              <svg viewBox="0 0 24 12">
+                <path d="M0 6h20M16 2l4 4-4 4" fill="none" stroke="#3D4559" stroke-width="1.5" />
+              </svg>
+            </div>
+            <div class="sdlc-phase">
+              <div class="sdlc-phase-name">Deploy</div>
+              <div class="sdlc-agent" style="color: var(--text-muted)">&nbsp;</div>
+            </div>
+            <div class="sdlc-arrow">
+              <svg viewBox="0 0 24 12">
+                <path d="M0 6h20M16 2l4 4-4 4" fill="none" stroke="#3D4559" stroke-width="1.5" />
+              </svg>
+            </div>
+            <div class="sdlc-phase">
+              <div class="sdlc-phase-name">Maintain</div>
+              <div class="sdlc-agent devops">DevOps</div>
+            </div>
+          </div>
+          <a href="https://aws.amazon.com/what-is/sdlc/" target="_blank" rel="noopener" class="slide-bottom-link">
+            aws.amazon.com/what-is/sdlc &#8599;
+          </a>
+        </section>
+
+        <!-- ============================================================
+           SLIDE 6 - DEVOPS AGENT DEEP DIVE
+           ============================================================ -->
+        <section>
+          <div class="section-label">03 / DevOps Agent</div>
+          <h2>DevOps Agent <span class="amber" style="font-size: 0.5em">Deep Dive</span></h2>
+          <ul class="constraint-list">
+            <li>
+              <strong>Always-On Triage</strong>
+              Automatically initiates investigation when a CloudWatch alarm fires; no manual escalation needed
+            </li>
+            <li>
+              <strong>Root Cause Analysis</strong>
+              Correlates CloudWatch logs, X-Ray traces and recent Git commits to pinpoint exact failure source
+            </li>
+            <li>
+              <strong>Structured Mitigation Plans</strong>
+              Generates Prepare / Pre-Validate / Apply / Post-Validate remediation steps ready for execution
+            </li>
+            <li>
+              <strong>Proactive Prevention</strong>
+              Analyzes historical incident patterns to recommend observability, infrastructure, deployment, and
+              resilience improvements
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================
+           SLIDE 7 - AGENT SPACES ARCHITECTURE
+           ============================================================ -->
+        <section>
+          <div class="section-label">03 / DevOps Agent</div>
+          <h2>Agent Spaces Architecture</h2>
+          <div class="arch-diagram">
+            <svg viewBox="0 0 900 400" width="900" height="400">
+              <!-- AWS Management Console -->
+              <rect x="20" y="40" width="240" height="110" rx="2" fill="#0D1018" stroke="rgba(255,255,255,0.2)" />
+              <text
+                x="140"
+                y="72"
+                text-anchor="middle"
+                fill="#FF9900"
+                font-size="13"
+                font-weight="500"
+                letter-spacing="0.08em">
+                AWS MANAGEMENT CONSOLE
+              </text>
+              <text x="140" y="96" text-anchor="middle" fill="#7A849E" font-size="12">Admin setup</text>
+              <text x="140" y="114" text-anchor="middle" fill="#7A849E" font-size="12">
+                IAM roles, integration config
+              </text>
+
+              <!-- DevOps Agent Web App -->
+              <rect x="640" y="40" width="240" height="110" rx="2" fill="#0D1018" stroke="rgba(255,255,255,0.2)" />
+              <text
+                x="760"
+                y="72"
+                text-anchor="middle"
+                fill="#00D4FF"
+                font-size="13"
+                font-weight="500"
+                letter-spacing="0.08em">
+                DEVOPS AGENT WEB APP
+              </text>
+              <text x="760" y="96" text-anchor="middle" fill="#7A849E" font-size="12">Investigations, RCA review</text>
+              <text x="760" y="114" text-anchor="middle" fill="#7A849E" font-size="12">Recommendations</text>
+
+              <!-- Agent Space (center) -->
+              <rect
+                x="290"
+                y="20"
+                width="320"
+                height="280"
+                rx="2"
+                fill="none"
+                stroke="rgba(255,153,0,0.35)"
+                stroke-dasharray="6 4" />
+              <text
+                x="450"
+                y="48"
+                text-anchor="middle"
+                fill="#FF9900"
+                font-size="14"
+                font-weight="500"
+                letter-spacing="0.08em">
+                AGENT SPACE
+              </text>
+
+              <!-- Integrations inside Agent Space - row 1 -->
+              <rect x="300" y="65" width="90" height="36" rx="2" fill="#0D1018" stroke="rgba(255,255,255,0.2)" />
+              <text x="345" y="88" text-anchor="middle" fill="#E8EAF2" font-size="11" font-weight="500">AWS Org</text>
+
+              <rect x="405" y="65" width="90" height="36" rx="2" fill="#0D1018" stroke="rgba(255,255,255,0.2)" />
+              <text x="450" y="88" text-anchor="middle" fill="#E8EAF2" font-size="11" font-weight="500">GitHub</text>
+
+              <rect x="510" y="65" width="90" height="36" rx="2" fill="#0D1018" stroke="rgba(255,255,255,0.2)" />
+              <text x="555" y="88" text-anchor="middle" fill="#E8EAF2" font-size="11" font-weight="500">GitLab</text>
+
+              <!-- row 2 -->
+              <rect x="300" y="115" width="90" height="36" rx="2" fill="#0D1018" stroke="rgba(255,255,255,0.2)" />
+              <text x="345" y="138" text-anchor="middle" fill="#E8EAF2" font-size="11" font-weight="500">Slack</text>
+
+              <rect x="405" y="115" width="90" height="36" rx="2" fill="#0D1018" stroke="rgba(255,255,255,0.2)" />
+              <text x="450" y="138" text-anchor="middle" fill="#E8EAF2" font-size="11" font-weight="500">
+                ServiceNow
+              </text>
+
+              <rect x="510" y="115" width="90" height="36" rx="2" fill="#0D1018" stroke="rgba(255,255,255,0.2)" />
+              <text x="555" y="138" text-anchor="middle" fill="#E8EAF2" font-size="11" font-weight="500">
+                PagerDuty
+              </text>
+
+              <!-- row 3 -->
+              <rect x="300" y="165" width="90" height="36" rx="2" fill="#0D1018" stroke="rgba(255,255,255,0.2)" />
+              <text x="345" y="188" text-anchor="middle" fill="#E8EAF2" font-size="11" font-weight="500">Datadog</text>
+
+              <rect x="405" y="165" width="90" height="36" rx="2" fill="#0D1018" stroke="rgba(255,255,255,0.2)" />
+              <text x="450" y="188" text-anchor="middle" fill="#E8EAF2" font-size="11" font-weight="500">
+                Dynatrace
+              </text>
+
+              <rect x="510" y="165" width="90" height="36" rx="2" fill="#0D1018" stroke="rgba(255,255,255,0.2)" />
+              <text x="555" y="188" text-anchor="middle" fill="#E8EAF2" font-size="11" font-weight="500">
+                New Relic
+              </text>
+
+              <!-- row 4 -->
+              <rect x="300" y="215" width="90" height="36" rx="2" fill="#0D1018" stroke="rgba(255,255,255,0.2)" />
+              <text x="345" y="238" text-anchor="middle" fill="#E8EAF2" font-size="11" font-weight="500">
+                MCP Servers
+              </text>
+
+              <rect x="405" y="215" width="90" height="36" rx="2" fill="#0D1018" stroke="rgba(255,255,255,0.2)" />
+              <text x="450" y="238" text-anchor="middle" fill="#E8EAF2" font-size="11" font-weight="500">Grafana</text>
+
+              <rect x="510" y="215" width="90" height="36" rx="2" fill="#0D1018" stroke="rgba(255,255,255,0.2)" />
+              <text x="555" y="238" text-anchor="middle" fill="#E8EAF2" font-size="11" font-weight="500">
+                Prometheus
+              </text>
+
+              <!-- Arrows -->
+              <defs>
+                <marker id="arrowAmber" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                  <path d="M0,0 L8,3 L0,6" fill="#B36B00" />
+                </marker>
+              </defs>
+              <path d="M260 95 L290 95" fill="none" stroke="#B36B00" stroke-width="1.5" marker-end="url(#arrowAmber)" />
+              <path d="M610 95 L640 95" fill="none" stroke="#B36B00" stroke-width="1.5" marker-end="url(#arrowAmber)" />
+
+              <!-- Footer -->
+              <text x="450" y="340" text-anchor="middle" fill="#7A849E" font-size="14" font-weight="500">
+                Each Agent Space = independent config, independent permissions
+              </text>
+            </svg>
+          </div>
+        </section>
+
+        <!-- ============================================================
+           SLIDE 8 - INTEGRATION MATRIX
+           ============================================================ -->
+        <section>
+          <div class="section-label">03 / DevOps Agent</div>
+          <h2>Integration Matrix</h2>
+          <table class="integration-table fragment-table">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Providers</th>
+                <th>What Agent Gets</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong class="amber">AWS Native</strong></td>
+                <td>CloudWatch, X-Ray</td>
+                <td>Auto-discovered; no extra setup</td>
+              </tr>
+              <tr>
+                <td><strong class="amber">Observability</strong></td>
+                <td>Datadog, Dynatrace, New Relic</td>
+                <td>Metrics, traces, topology</td>
+              </tr>
+              <tr>
+                <td><strong class="amber">CI/CD</strong></td>
+                <td>GitHub, GitLab</td>
+                <td>Deployment history, commit correlation</td>
+              </tr>
+              <tr>
+                <td><strong class="amber">Notifications</strong></td>
+                <td>Slack, ServiceNow</td>
+                <td>Outbound RCA findings, bidirectional tickets</td>
+              </tr>
+              <tr>
+                <td><strong class="amber">Custom</strong></td>
+                <td>MCP Servers, Grafana, Prometheus</td>
+                <td>Extensible read-only tool access</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- ============================================================
+           SLIDE 9 - INVESTIGATION FLOW
+           ============================================================ -->
+        <section>
+          <div class="section-label">03 / DevOps Agent</div>
+          <h2>Investigation Flow</h2>
+          <div class="step-diagram">
+            <div class="fragment" data-fragment-index="0">
+              <div class="step-box">
+                <div class="step-number">1</div>
+                <div class="step-title">Alarm Fires</div>
+                <div class="step-desc">CloudWatch alert</div>
+              </div>
+            </div>
+            <div class="step-arrow fragment" data-fragment-index="1">
+              <svg viewBox="0 0 32 16">
+                <path d="M0 8h28M24 4l4 4-4 4" fill="none" stroke="#B36B00" stroke-width="1.5" />
+              </svg>
+            </div>
+            <div class="fragment" data-fragment-index="1">
+              <div class="step-box">
+                <div class="step-number">2</div>
+                <div class="step-title">Agent Triggered</div>
+                <div class="step-desc">Auto-initiated</div>
+              </div>
+            </div>
+            <div class="step-arrow fragment" data-fragment-index="2">
+              <svg viewBox="0 0 32 16">
+                <path d="M0 8h28M24 4l4 4-4 4" fill="none" stroke="#B36B00" stroke-width="1.5" />
+              </svg>
+            </div>
+            <div class="fragment" data-fragment-index="2">
+              <div class="step-box">
+                <div class="step-number">3</div>
+                <div class="step-title">Data Correlation</div>
+                <div class="step-desc">Logs + X-Ray + Git</div>
+              </div>
+            </div>
+            <div class="step-arrow fragment" data-fragment-index="3">
+              <svg viewBox="0 0 32 16">
+                <path d="M0 8h28M24 4l4 4-4 4" fill="none" stroke="#B36B00" stroke-width="1.5" />
+              </svg>
+            </div>
+            <div class="fragment" data-fragment-index="3">
+              <div class="step-box">
+                <div class="step-number">4</div>
+                <div class="step-title">RCA Generated</div>
+                <div class="step-desc">Root cause + gaps</div>
+              </div>
+            </div>
+            <div class="step-arrow fragment" data-fragment-index="4">
+              <svg viewBox="0 0 32 16">
+                <path d="M0 8h28M24 4l4 4-4 4" fill="none" stroke="#B36B00" stroke-width="1.5" />
+              </svg>
+            </div>
+            <div class="fragment" data-fragment-index="4">
+              <div class="step-box">
+                <div class="step-number">5</div>
+                <div class="step-title">Mitigation Plan</div>
+                <div class="step-desc">Prepare/Apply/Verify</div>
+              </div>
+            </div>
+          </div>
+          <p
+            class="fragment"
+            data-fragment-index="2"
+            style="text-align: center; font-size: 14px; color: var(--text-secondary); margin-top: 24px">
+            Agent reports investigation gaps if data is missing or permissions are insufficient
+          </p>
+        </section>
+
+        <!-- ============================================================
+           SLIDE 10 - PREVIEW CONSTRAINTS
+           ============================================================ -->
+        <section>
+          <div class="section-label">03 / DevOps Agent</div>
+          <h2>Preview Constraints</h2>
+          <ul class="constraint-list">
+            <li><strong>Region</strong> us-east-1 only (primary processing + data storage)</li>
+            <li>
+              <strong>Quotas</strong> Max 10 Agent Spaces; 20 incident resolution hours/month; 3 concurrent
+              investigations
+            </li>
+            <li><strong>Compliance</strong> Not SOC 2, PCI-DSS, ISO 27001, or FedRAMP compliant during preview</li>
+            <li>
+              <strong>PII</strong> Agent does NOT filter PII from logs; customer responsible for redaction before
+              ingestion
+            </li>
+            <li><strong>Pricing</strong> Free during preview; integrated AWS services billed normally</li>
+          </ul>
+        </section>
+
+        <!-- ============================================================
+           SECTION - DEMO
+           ============================================================ -->
+
+        <!-- SLIDE 11 - Demo Overview -->
+        <section>
+          <div class="section-label">04 / Demo</div>
+          <h2>Demo Overview</h2>
+          <img src="./assets/demo-overview.jpg" alt="Demo high-level flow" class="slide-img" />
+        </section>
+
+        <!-- SLIDE 12 - Demo Architecture -->
+        <section>
+          <div class="section-label">04 / Demo</div>
+          <h2>System Architecture</h2>
+          <img src="./assets/system-architecture.jpg" alt="System architecture diagram" class="slide-img" />
+        </section>
+
+        <!-- SLIDE 13 - Step 1: Healthy State -->
+        <section
+          data-terminal='[{"type":"cmd","text":"$ bash smoke-test.sh https://api.example.com/dev","delay":0},{"type":"info","text":"[INFO] Testing GET /messages...","delay":800},{"type":"output","text":"  -> HTTP 200 OK  (38ms)","delay":400},{"type":"info","text":"[INFO] Testing POST /messages...","delay":400},{"type":"output","text":"  -> HTTP 200 OK  (61ms)","delay":400},{"type":"info","text":"[INFO] Testing GET /messages (verify stored)...","delay":400},{"type":"output","text":"  -> HTTP 200 OK  (42ms)","delay":400},{"type":"success","text":"[PASS] All checks passed. API is healthy.","delay":600}]'>
+          <div class="section-label">04 / Demo</div>
+          <h2>Step 1: <span class="amber">Healthy State</span></h2>
+          <div class="terminal">
+            <div class="terminal-titlebar">
+              <div class="terminal-dot red"></div>
+              <div class="terminal-dot yellow"></div>
+              <div class="terminal-dot green"></div>
+              <span class="terminal-title">smoke-test.sh</span>
+            </div>
+            <div class="terminal-body">
+              <span class="terminal-cursor"></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 14 - Step 2: Fault Injection -->
+        <section
+          data-terminal='[{"type":"cmd","text":"$ python break_s3_policy.py --bucket messages-bucket-xyz --lambda-role-arn arn:aws:iam::123456789012:role/lambda_exec_role","delay":0},{"type":"info","text":"[INFO] Saving original bucket policy...","delay":1000},{"type":"info","text":"[INFO] Injecting Deny statement for Lambda role...","delay":600},{"type":"output","text":"[OK]   Fault injected. S3 access denied for Lambda.","delay":600},{"type":"cmd","text":"$ curl -X POST https://api.example.com/dev/messages -d &apos;{\"message\":\"test\"}&apos;","delay":800},{"type":"error","text":"  -> HTTP 500 Internal Server Error","delay":600},{"type":"error","text":"[ERROR] AccessDenied: s3:PutObject on messages-bucket-xyz","delay":400},{"type":"error","text":"[ERROR] Principal: arn:aws:iam::123456789012:role/lambda_exec_role","delay":300},{"type":"error","text":"[FAIL]  Fault is active. CloudWatch alarm will fire within 60s.","delay":400}]'>
+          <div class="section-label">04 / Demo</div>
+          <h2>Step 2: <span class="red">Fault Injection</span></h2>
+          <div class="terminal">
+            <div class="terminal-titlebar">
+              <div class="terminal-dot red"></div>
+              <div class="terminal-dot yellow"></div>
+              <div class="terminal-dot green"></div>
+              <span class="terminal-title">fault-injection</span>
+            </div>
+            <div class="terminal-body">
+              <span class="terminal-cursor"></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 15 - Step 3: Agent Investigation -->
+        <section>
+          <div class="section-label">04 / Demo</div>
+          <h2>Step 3: <span class="cyan">Agent Investigation</span></h2>
+          <div class="investigation-timeline">
+            <div class="timeline-entry fragment" data-fragment-index="0">
+              <div class="timeline-time">T+0s</div>
+              <div class="timeline-desc">CloudWatch error alarm fired</div>
+            </div>
+            <div class="timeline-entry fragment" data-fragment-index="1">
+              <div class="timeline-time">T+30s</div>
+              <div class="timeline-desc">Agent Space picked up alarm trigger</div>
+            </div>
+            <div class="timeline-entry fragment" data-fragment-index="2">
+              <div class="timeline-time">T+60s</div>
+              <div class="timeline-desc">
+                Agent queries X-Ray traces - finds <span class="red">AccessDenied</span> on S3-PutObject subsegments
+              </div>
+            </div>
+            <div class="timeline-entry fragment" data-fragment-index="3">
+              <div class="timeline-time">T+90s</div>
+              <div class="timeline-desc">
+                Agent queries CloudWatch Logs - retrieves stack traces confirming S3 error
+              </div>
+            </div>
+            <div class="timeline-entry fragment" data-fragment-index="4">
+              <div class="timeline-time">T+120s</div>
+              <div class="timeline-desc">Agent queries GitHub commits - checks recent S3-related changes</div>
+            </div>
+            <div class="timeline-entry fragment" data-fragment-index="5">
+              <div class="timeline-time">T+150s</div>
+              <div class="timeline-desc"><strong class="amber">RCA generated</strong></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 16 - Step 4: RCA Result -->
+        <section>
+          <div class="section-label">04 / Demo</div>
+          <h2>Step 4: <span class="amber">RCA Result</span></h2>
+          <div class="rca-quote" style="font-size: 16px">
+            S3 bucket policy contains an explicit Deny for <code style="color: var(--amber)">s3:PutObject</code>,
+            <code style="color: var(--amber)">s3:GetObject</code>, and
+            <code style="color: var(--amber)">s3:ListBucket</code>
+            targeting the Lambda execution <span style="white-space: nowrap">role ARN.</span><br />
+            Explicit Deny overrides the Lambda role's IAM Allow policy, causing AccessDenied on all S3 operations.
+          </div>
+          <h3 class="fragment" data-fragment-index="0" style="margin-top: 24px">Mitigation Plan</h3>
+          <ol class="mitigation-steps">
+            <li class="fragment" data-fragment-index="1">
+              <strong>Prepare</strong> Identify the Deny statement by Sid:
+              <code style="color: var(--amber)">FaultInjectionDeny</code> in bucket policy
+            </li>
+            <li class="fragment" data-fragment-index="2">
+              <strong>Pre-Validate</strong> Confirm Lambda role ARN matches the denied principal
+            </li>
+            <li class="fragment" data-fragment-index="3">
+              <strong>Apply</strong> Remove or update the Deny statement; restore original bucket policy
+            </li>
+            <li class="fragment" data-fragment-index="4">
+              <strong>Post-Validate</strong> Run smoke test; verify CloudWatch alarm returns to OK state within 60s
+            </li>
+          </ol>
+        </section>
+
+        <!-- ============================================================
+           SLIDE 17 - LIVE DEMO
+           ============================================================ -->
+        <section>
+          <div class="section-label">04 / Demo</div>
+          <h2>Let's See It <span class="amber">Live</span></h2>
+          <p style="font-size: 22px; color: var(--text-primary); max-width: 700px; line-height: 1.7; margin-top: 24px">
+            Switching to the <strong style="color: var(--amber)">AWS Console</strong> - we'll walk through the fault
+            injection, alarm trigger, and Agent RCA in real time.
+          </p>
+        </section>
+
+        <!-- ============================================================
+           SLIDE 18 - FEEDBACK
+           ============================================================ -->
+        <section
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+          ">
+          <h2>Share Your Feedback</h2>
+          <div
+            class="qr-slide"
+            style="display: flex; flex-direction: column; align-items: center; margin-top: 24px; width: 100%">
+            <div id="qr-canvas" style="display: flex; justify-content: center"></div>
+            <p
+              style="
+                margin-top: 20px;
+                font-family: 'IBM Plex Mono', monospace;
+                font-size: 15px;
+                color: var(--cyan);
+                letter-spacing: 0.08em;
+                text-align: center;
+                width: 256px;
+              ">
+              Scan to share your feedback
+            </p>
+          </div>
+        </section>
+      </div>
+      <!-- /slides -->
+    </div>
+    <!-- /reveal -->
+
+    <!-- Reveal.js -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+
+    <!-- QR Code generator -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+
+    <!-- Interactions -->
+    <script src="js/interactions.js"></script>
+
+    <!-- Init -->
+    <script>
+      Reveal.initialize({
+        hash: true,
+        transition: 'fade',
+        transitionSpeed: 'fast',
+        backgroundTransition: 'fade',
+        slideNumber: false,
+        controls: false,
+        progress: true,
+        center: false,
+        width: 1280,
+        height: 720,
+      });
+    </script>
+  </body>
+</html>
