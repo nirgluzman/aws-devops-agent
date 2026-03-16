@@ -24,12 +24,23 @@
       "Bash(\"$DRAWIO\" --export --format jpg --scale 1.2 --border 10 --quality 100 --output \"$ASSETS/01-system-architecture.jpg\" \"$DIAGRAMS/01-system-architecture.drawio\")",
       "Bash(\"$DRAWIO\" --export --format jpg --scale 1.2 --border 10 --quality 100 --output \"$ASSETS/02-fault-injection-flow.jpg\" \"$DIAGRAMS/02-fault-injection-flow.drawio\")",
       "Bash(\"$DRAWIO\" --export --format jpg --scale 1.2 --border 10 --quality 100 --output \"$ASSETS/03-cicd-pipeline.jpg\" \"$DIAGRAMS/03-cicd-pipeline.drawio\")",
-      "Bash(\"$DRAWIO\" --export --format jpg --scale 1.2 --border 10 --quality 100 --output \"$ASSETS/04-request-flow-sequence.jpg\" \"$DIAGRAMS/04-request-flow-sequence.drawio\")"
+      "Bash(\"$DRAWIO\" --export --format jpg --scale 1.2 --border 10 --quality 100 --output \"$ASSETS/04-request-flow-sequence.jpg\" \"$DIAGRAMS/04-request-flow-sequence.drawio\")",
+      "mcp__chrome-devtools__navigate_page",
+      "mcp__chrome-devtools__take_screenshot",
+      "mcp__chrome-devtools__list_console_messages",
+      "mcp__chrome-devtools__get_console_message",
+      "mcp__chrome-devtools__list_network_requests",
+      "mcp__chrome-devtools__evaluate_script",
+      "mcp__chrome-devtools__list_pages"
     ]
   },
   "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "aws-docs",
-    "terraform"
-  ]
+    "terraform",
+    "mcpServers"
+  ],
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": true
+  }
 }
